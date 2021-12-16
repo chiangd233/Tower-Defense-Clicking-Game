@@ -2,8 +2,47 @@
     text-align: center;
     padding: 100px;
 }
+
 span {
     font-weight: bold;
+}
+
+.battlefield {
+    background-color: green;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: flex-start; */
+}
+
+.lanes {
+    display: flex;
+    flex-direction: column;
+}
+
+.lane {
+    background-color: #b5651d;
+    width: 90vw;
+    height: 30vh;
+    margin: 10px 0px 
+}
+
+.wall {
+    background-color: grey;
+    width: 10vw;
+    height: 90vh;
+    display: flex;
+    border: 20px rgb(144,144,144);
+    border-style: ridge;
+}
+
+.shooter {
+    background-color: red;
+    width: 25px;
+    height: 25px;
+    margin: auto;
+    align-items: center;
 }
 
 .instruction {
@@ -11,7 +50,7 @@ span {
 }
 
 div {
-    top: 50%;
+    /* top: 50%; */
     text-align: center;
 }
 
