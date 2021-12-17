@@ -129,6 +129,23 @@ function drawGameGrid () {
 }
 console.log (gameGrid)
 
+// Mouse Movement for canvas
+const mouse = {
+    x: 0,
+    y: 0,
+    width: 0.1,
+    height: 0.1,
+}
+let canvasPosition = canvas.getBoundingClientRect ();
+canvas.addEventListener('mousemove', function (e) {
+    mouse.x = e.x - canvasPosition.left;
+    mouse.y = e.y - canvasPosition.top;
+    console.log(mouse)
+})
+
+//Enemy Creation
+
+
 
 // Animate game
 function animate () {
