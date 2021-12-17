@@ -44,7 +44,7 @@ function increaseScore () {
 
 // Timer function for game
 
-let startingMinutes = 5;
+let startingMinutes = 3;
 let timeLeft = startingMinutes * 60;
 const timerEl = document.getElementById('timer');
 
@@ -255,7 +255,7 @@ function restart (retry, wL) {
     enemies = [];
     enemyPosition = [];
     frame = 0;
-    timeLeft = 300;
+    timeLeft = 180;
     lives = 5;
     livesEl.innerHTML = `Lives Left ${lives}`
     score = 0

@@ -107,6 +107,15 @@ p {
     height: 600px;
     width: 900px;
     text-align: center;
+    background-image: url('./game_images/background.jpeg');
+    border: 10px solid black;
+}
+
+p {
+    margin: auto;
+    text-align: left;
+    max-width: 500px;
+    background-color: white;
 }
 
 #canvas1 {
