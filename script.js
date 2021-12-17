@@ -114,7 +114,7 @@ class enemy {
         this.y = verticalPosition;
         this.width = cellSize;
         this.height = cellSize;
-        this.speed = Math.random() + 2.5;
+        this.speed = Math.random() + 3;
     }
     move () {
         this.x -= this.speed;
@@ -142,6 +142,57 @@ function enemyMove () {
         }
     }
 }
+// Win Lose Conditions
+
+function checkConditon () {
+    if (livesEl.innerHTML === `Lives Left 0` ) {
+            let loseEl = document.createElement('div');
+            let loseBtn = document.createElement('button');
+            popUp(loseEl);
+            loseEl.style.backgroundColor = "red";
+            loseEl.innerHTML = '<p>You Lose</p>';
+            retryBtn(loseBtn);
+            document.body.appendChild(loseBtn);
+    } else if ( timerEl.innerHTML === `0:00` &&
+                livesEl.innerHTML !== `Lives Left 0` ) {
+            let winEl = document.createElement('div');
+            let winBtn = document.createElement('button');
+            popUp(winEl);
+            winEl.style.backgroundColor = "green";
+            winEl.innerHTML = '<p>You Win</p>';
+            retryBtn(winBtn);
+            document.body.appendChild(winBtn)
+    } else {
+        requestAnimationFrame(animate);
+    }
+}
+
+function popUp(wL) {
+    wL.style.height = '600px'
+    wL.style.width = '900px'
+    wL.style.position = 'absolute'
+    wL.style.top = '50%'
+    wL.style.left = '50%'
+    wL.style.opacity = "0.5"
+    wL.style.transform = "translate(-50%, -50%)"
+    wL.style.fontSize = "50px"
+    wL.style.textAlign = "center"
+    document.body.appendChild(wL)
+}
+
+function retryBtn (wL) {
+    wL.innerHTML = 'Retry';
+    wL.style.position = 'absolute'
+    wL.style.top = '50%'
+    wL.style.left = '50%'
+    wL.style.transform = "translate(-50%, -50%)"
+    wL.style.padding = "10px"
+    wL.style.fontSize = "20px"
+    wL.addEventListener("click", function (e) {
+        e.preventDefault();
+        restart ();
+    }
+}
 
 
 // Animate game
@@ -152,6 +203,7 @@ function animate () {
     ctx.fillStyle = 'blue';
     ctx.fillRect(0, 0, castleWall.width, castleWall.height)
     frame++;
-    requestAnimationFrame(animate);
+    checkConditon();
+    
 }
 animate ();
