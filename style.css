@@ -1,4 +1,4 @@
-.title {
+/* .title {
     text-align: center;
     padding: 100px;
 }
@@ -28,7 +28,7 @@ span {
     height: 97vh;
     display: flex;
     align-items: center;
-    /* justify-content: flex-start; */
+    justify-content: flex-start; 
 }
 
 .lanes {
@@ -41,10 +41,12 @@ span {
     width: 90vw;
     height: 30vh;
     margin: 10px 0px;
-    display: flex;
+    display: flex; 
+    flex-shrink: 0;
     flex-direction: row-reverse;
     justify-content: right;
-    align-items: center;
+    align-items: center; 
+    left: 0px;
 }
 
 #wall {
@@ -69,7 +71,7 @@ span {
 }
 
 div {
-    /* top: 50%; */
+    top: 50%;
     text-align: center;
 }
 
@@ -83,9 +85,9 @@ p {
     max-width: 500px;
 }
 
-
 .enemy {
     background-color: red;
+    align-self: center;
     width: 100px;
     height: 100px;
     margin: 10px;
@@ -95,4 +97,14 @@ p {
     width: 100px;
     height: 100px;
     margin: 10px;
+} */
+
+#canvas1 {
+    border: 1px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 1200px;
+    width: 1800px;
 }
