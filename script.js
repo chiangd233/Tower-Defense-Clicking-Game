@@ -91,11 +91,48 @@
 
 //  // onclick function to remove enemies
 // Global Variables
-const canvas = document.getElementById("#canvas1");
-let ctx = canvas.getContext('2d');
-canvas.height = 1200;
-canvas.width = 1800;
+const canvas = document.getElementById("canvas1");
+const ctx = canvas.getContext('2d');
+canvas.height = 600;
+canvas.width = 900;
+const cellSize = 50;
+const cellGap = 15;
+const gameGrid = [];
 
 // Creation of Gameboard
+class cell {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.width = cellSize;
+        this.height = cellSize;
+    }
+    draw () {
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+    }
+}
+
+function createGrid () {
+    for (let y = 0; y < canvas.height; y += cellSize) {
+        for (let x = 0; x < canvas.width; x += cellSize) {
+            gameGrid.push(new cell(x, y));
+        }
+    }
+}
+createGrid ();
+
+function drawGameGrid () {
+    for (let i = 0; i < gameGrid.length; i++) {
+        gameGrid[i].draw();
+    }
+}
+console.log (gameGrid)
 
 
+// Animate game
+function animate () {
+    drawGameGrid();
+    requestAnimationFrame(animate);
+}
+animate ();

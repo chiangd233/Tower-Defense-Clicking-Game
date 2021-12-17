@@ -105,6 +105,22 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 1200px;
-    width: 1800px;
+    height: 600px;
+    width: 900px;
+}
+
+.info {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    width: 900px;
+    background-color: grey;
+    border: 3px rgb(144,144,144);
+    border-style: ridge;
+}
+
+.info div {
+    width: 200px;
+    font-size: 30px;
+    height: 3vh;
 }
