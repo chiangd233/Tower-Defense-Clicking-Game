@@ -28,6 +28,11 @@ let playerImage = new Image();
 playerImage.src = '/game_images/player.png';
 playerImages.push(playerImage);
 
+let floorImages = [];
+let floorImage = new Image();
+floorImage.src = '/game_images/floor.png';
+floorImages.push(floorImage);
+
 // Score Adding for each popped enemy
 const scoreEl = document.getElementById('score');
 scoreEl.innerHTML = `Score: ${score}`;
@@ -80,6 +85,12 @@ const castleWall = {
     width: cellSize,
     height: canvas.height,
     img: wallImages[0]
+}
+
+const backgroundFloor = {
+    width: canvas.width,
+    height: canvas.height,
+    img: floorImages[0],
 }
 
 // Player creation
@@ -164,7 +175,7 @@ class enemy {
         this.x -= this.speed;
     }
     draw () {
-        ctx.fillStyle = '#9B7653';
+        ctx.fillStyle = '#422835';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
@@ -196,7 +207,7 @@ function checkConditon () {
             let loseBtn = document.createElement('button');
             popUp(loseEl);
             loseEl.style.backgroundColor = "red";
-            loseEl.innerHTML = `<p>You Lose</br>Your Score: ${score}</p>`;
+            loseEl.innerHTML = `<p>You Have Been Defeated!</br>Your Score: ${score}</p>`;
             retryBtn(loseBtn, loseEl);
             document.body.appendChild(loseBtn);
     } else if ( timerEl.innerHTML === `0:00` ) {
@@ -204,7 +215,7 @@ function checkConditon () {
             let winBtn = document.createElement('button');
             popUp(winEl);
             winEl.style.backgroundColor = "green";
-            winEl.innerHTML = `<p>You Win</br>Your Score: ${score}</p>`;
+            winEl.innerHTML = `<p>Victory!</br>Your Score: ${score}</p>`;
             retryBtn(winBtn, winEl);
             document.body.appendChild(winBtn)
     } else {
@@ -222,6 +233,7 @@ function popUp(wL) {
     wL.style.transform = "translate(-50%, -50%)"
     wL.style.fontSize = "50px"
     wL.style.textAlign = "center"
+    wL.style.color = "black"
     document.body.appendChild(wL)
 }
 
@@ -257,10 +269,15 @@ function restart (retry, wL) {
 // Animate game
 function animate () {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    drawGameGrid();
+
+    
+    // ctx.fillStyle = '#9B7653';
+    // ctx.fillRect(0, 0, castleWall.width, castleWall.height)
+    ctx.drawImage(backgroundFloor.img, 0, 0, backgroundFloor.width, backgroundFloor.height)
+
+    // drawGameGrid();
     enemyMove();
-    ctx.fillStyle = '#9B7653';
-    ctx.fillRect(0, 0, castleWall.width, castleWall.height)
+
     ctx.drawImage(castleWall.img, -35, -50, castleWall.width + 70, castleWall.height + 100)
     ctx.drawImage(player.img, player.x, player.y, player.width, player.height)
     frame++;

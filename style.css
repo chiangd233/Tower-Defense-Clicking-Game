@@ -98,6 +98,16 @@ p {
     height: 100px;
     margin: 10px;
 } */
+.page {
+    border: 1px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 600px;
+    width: 900px;
+    text-align: center;
+}
 
 #canvas1 {
     border: 1px solid black;
@@ -117,7 +127,10 @@ p {
     background-color: grey;
     border: 3px rgb(144,144,144);
     border-style: ridge;
-    vertical-align: middle;
+    position: absolute;
+    top: 24%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .info div {
