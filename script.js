@@ -98,8 +98,16 @@ canvas.width = 900;
 const cellSize = 50;
 const cellGap = 15;
 const gameGrid = [];
+const enemies = [];
+let enemyPosition = [];
+let frame = 0;
 
 // Creation of Gameboard
+const castleWall = {
+    width: cellSize,
+    height: canvas.height,
+}
+
 class cell {
     constructor(x, y) {
         this.x = x;
@@ -115,7 +123,7 @@ class cell {
 
 function createGrid () {
     for (let y = 0; y < canvas.height; y += cellSize) {
-        for (let x = 0; x < canvas.width; x += cellSize) {
+        for (let x = cellSize; x < canvas.width; x += cellSize) {
             gameGrid.push(new cell(x, y));
         }
     }
@@ -144,12 +152,51 @@ canvas.addEventListener('mousemove', function (e) {
 })
 
 //Enemy Creation
+let spawnRate = 0.5
+class enemy {
+    constructor(verticalPosition) {
+        this.x = canvas.width;
+        this.y = verticalPosition;
+        this.width = cellSize;
+        this.height = cellSize;
+        this.speed = Math.random() + 2.5;
+    }
+    move () {
+        this.x -= this.speed;
+    }
+    draw () {
+        ctx.fillStyle = "red";
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+}
 
+function enemyMove () {
+    for (let i = 0; i < enemies.length; i++) {
+        enemies[i].move()
+        enemies[i].draw()
+        // if (enemies[i].x < cellSize) {
+        //     ctx.fillStyle = "blue";
+        //     ctx.fillRect(0, 0, enemies[i].width, canvas.height)
+        // }
+    }
+    if (frame % 25 === 0){
+        if(Math.random() <= spawnRate) {
+            let verticalPosition = Math.floor(Math.random() * 12) * cellSize;
+            enemies.push(new enemy(verticalPosition))
+            enemyPosition.push(verticalPosition)
+        }
+    }
+}
 
 
 // Animate game
 function animate () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawGameGrid();
+    enemyMove();
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(0, 0, castleWall.width, castleWall.height)
+    frame++;
     requestAnimationFrame(animate);
 }
 animate ();
