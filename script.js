@@ -12,10 +12,21 @@ let enemyPosition = [];
 let frame = 0;
 let score = 0;
 
+// Adding Images
 let enemyImages = [];
 let enemyImage = new Image();
-enemyImage.src = 'ogre.png';
+enemyImage.src = '/game_images/ogre.png';
 enemyImages.push(enemyImage);
+
+let wallImages = [];
+let wallImage = new Image();
+wallImage.src = '/game_images/wall.png';
+wallImages.push(wallImage);
+
+let playerImages = [];
+let playerImage = new Image();
+playerImage.src = '/game_images/player.png';
+playerImages.push(playerImage);
 
 // Score Adding for each popped enemy
 const scoreEl = document.getElementById('score');
@@ -68,6 +79,16 @@ function decreaseLives () {
 const castleWall = {
     width: cellSize,
     height: canvas.height,
+    img: wallImages[0]
+}
+
+// Player creation
+const player = {
+    x: 0,
+    y: canvas.height / 2 - 25,
+    width: cellSize,
+    height: cellSize,
+    img: playerImages[0]
 }
 
 class cell {
@@ -78,8 +99,8 @@ class cell {
         this.height = cellSize;
     }
     draw () {
-        ctx.strokeStyle = 'white';
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        ctx.fillStyle = '#9B7653';
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
 
@@ -126,6 +147,7 @@ enemyDiv.addEventListener("click", function (e) {
     } 
 } )
 
+
 //Enemy Creation
 
 let spawnRate = 0.5
@@ -142,7 +164,7 @@ class enemy {
         this.x -= this.speed;
     }
     draw () {
-        ctx.fillStyle = "red";
+        ctx.fillStyle = '#9B7653';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
@@ -224,6 +246,8 @@ function restart (retry, wL) {
     timeLeft = 300;
     lives = 5;
     livesEl.innerHTML = `Lives Left ${lives}`
+    score = 0
+    scoreEl.innerHTML = `Score: ${score}`
     animate ();
     wL.remove();
     retry.remove();
@@ -235,8 +259,10 @@ function animate () {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     drawGameGrid();
     enemyMove();
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = '#9B7653';
     ctx.fillRect(0, 0, castleWall.width, castleWall.height)
+    ctx.drawImage(castleWall.img, -35, -50, castleWall.width + 70, castleWall.height + 100)
+    ctx.drawImage(player.img, player.x, player.y, player.width, player.height)
     frame++;
     checkConditon();
 }

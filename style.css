@@ -117,6 +117,7 @@ p {
     background-color: grey;
     border: 3px rgb(144,144,144);
     border-style: ridge;
+    vertical-align: middle;
 }
 
 .info div {
