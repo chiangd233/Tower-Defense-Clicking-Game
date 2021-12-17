@@ -9,14 +9,16 @@ canvas.width = 900;
 const cellSize = 50;
 const cellGap = 15;
 const gameGrid = [];
-const enemies = [];
+let enemies = [];
 let enemyPosition = [];
 let frame = 0;
 
 // Timer function for game
-const startingMinutes = 0.1;
+let startingMinutes = 0.1;
 let timeLeft = startingMinutes * 60;
 const timerEl = document.getElementById('timer');
+
+updateTimer()
 setInterval (updateTimer, 1000);
 
 function updateTimer () {
@@ -42,11 +44,6 @@ let lives = 5;
 const livesEl = document.getElementById('lives');
 livesEl.innerHTML = `Lives Left ${lives}`;
 
-// wallEl.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     decreaseLives();
-// })
-
 function decreaseLives () {
     if (lives <= 0) {
         livesEl.innerHTML = `Lives Left 0`
@@ -71,7 +68,7 @@ class cell {
         this.height = cellSize;
     }
     draw () {
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = 'white';
         ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
 }
@@ -90,7 +87,6 @@ function drawGameGrid () {
         gameGrid[i].draw();
     }
 }
-console.log (gameGrid)
 
 // Mouse Movement for canvas
 const mouse = {
@@ -145,22 +141,21 @@ function enemyMove () {
 // Win Lose Conditions
 
 function checkConditon () {
-    if (livesEl.innerHTML === `Lives Left 0` ) {
+    if (lives === 0) {
             let loseEl = document.createElement('div');
             let loseBtn = document.createElement('button');
             popUp(loseEl);
             loseEl.style.backgroundColor = "red";
             loseEl.innerHTML = '<p>You Lose</p>';
-            retryBtn(loseBtn);
+            retryBtn(loseBtn, loseEl);
             document.body.appendChild(loseBtn);
-    } else if ( timerEl.innerHTML === `0:00` &&
-                livesEl.innerHTML !== `Lives Left 0` ) {
+    } else if ( timerEl.innerHTML === `0:00` ) {
             let winEl = document.createElement('div');
             let winBtn = document.createElement('button');
             popUp(winEl);
             winEl.style.backgroundColor = "green";
             winEl.innerHTML = '<p>You Win</p>';
-            retryBtn(winBtn);
+            retryBtn(winBtn, winEl);
             document.body.appendChild(winBtn)
     } else {
         requestAnimationFrame(animate);
@@ -180,18 +175,30 @@ function popUp(wL) {
     document.body.appendChild(wL)
 }
 
-function retryBtn (wL) {
-    wL.innerHTML = 'Retry';
-    wL.style.position = 'absolute'
-    wL.style.top = '50%'
-    wL.style.left = '50%'
-    wL.style.transform = "translate(-50%, -50%)"
-    wL.style.padding = "10px"
-    wL.style.fontSize = "20px"
-    wL.addEventListener("click", function (e) {
+function retryBtn (retry, wL) {
+    retry.innerHTML = 'Retry';
+    retry.style.position = 'absolute'
+    retry.style.top = '50%'
+    retry.style.left = '50%'
+    retry.style.transform = "translate(-50%, -50%)"
+    retry.style.padding = "10px"
+    retry.style.fontSize = "20px"
+    retry.addEventListener("click", function (e) {
         e.preventDefault();
-        restart ();
-    }
+        restart (retry, wL);
+    })
+}
+
+function restart (retry, wL) {
+    enemies = [];
+    enemyPosition = [];
+    frame = 0;
+    timeLeft = 90;
+    startingMinutes = 5;
+    lives = 5
+    animate ();
+    wL.remove()
+    retry.remove()
 }
 
 
