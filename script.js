@@ -1,7 +1,5 @@
-
-
-
 // Global Variables
+
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
 canvas.height = 600;
@@ -12,9 +10,25 @@ const gameGrid = [];
 let enemies = [];
 let enemyPosition = [];
 let frame = 0;
+let score = 0;
+
+let enemyImages = [];
+let enemyImage = new Image();
+enemyImage.src = 'ogre.png';
+enemyImages.push(enemyImage);
+
+// Score Adding for each popped enemy
+const scoreEl = document.getElementById('score');
+scoreEl.innerHTML = `Score: ${score}`;
+
+function increaseScore () {
+    score = score + 1;
+    scoreEl.innerHTML = `Score: ${score}`;
+}
 
 // Timer function for game
-let startingMinutes = 0.1;
+
+let startingMinutes = 5;
 let timeLeft = startingMinutes * 60;
 const timerEl = document.getElementById('timer');
 
@@ -25,11 +39,6 @@ function updateTimer () {
     if (timeLeft <= 0) {
         timerEl.innerHTML = `0:00`
         return
-        // if (lives < 0) {
-        //     return 'you win'
-        // } else {
-        //     return 'you lose'
-        // }
     }
     const minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
@@ -40,6 +49,7 @@ function updateTimer () {
 }
 
 // lives and function for live decrease
+
 let lives = 5;
 const livesEl = document.getElementById('lives');
 livesEl.innerHTML = `Lives Left ${lives}`;
@@ -89,20 +99,35 @@ function drawGameGrid () {
 }
 
 // Mouse Movement for canvas
+
 const mouse = {
     x: 0,
     y: 0,
-    width: 0.1,
-    height: 0.1,
+    width: 1,
+    height: 1,
 }
 let canvasPosition = canvas.getBoundingClientRect ();
 canvas.addEventListener('mousemove', function (e) {
     mouse.x = e.x - canvasPosition.left;
     mouse.y = e.y - canvasPosition.top;
-    console.log(mouse)
 })
 
+// Enemy Killing Code
+let enemyDiv = document.querySelector('canvas')
+enemyDiv.addEventListener("click", function (e) {
+    for (let i = 0; i < enemies.length; i++) {
+        let buffer = 30;
+        if (enemies[i].x - buffer <= mouse.x && mouse.x <= enemies[i].x + cellSize + buffer &&
+            enemies[i].y - buffer <= mouse.y && mouse.y <= enemies[i].y + cellSize + buffer) {
+                enemies.splice(i,1);
+                increaseScore();
+                return;
+            }
+    } 
+} )
+
 //Enemy Creation
+
 let spawnRate = 0.5
 class enemy {
     constructor(verticalPosition) {
@@ -111,6 +136,7 @@ class enemy {
         this.width = cellSize;
         this.height = cellSize;
         this.speed = Math.random() + 3;
+        this.image = enemyImages[0];
     }
     move () {
         this.x -= this.speed;
@@ -118,6 +144,7 @@ class enemy {
     draw () {
         ctx.fillStyle = "red";
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 }
 
@@ -138,6 +165,7 @@ function enemyMove () {
         }
     }
 }
+
 // Win Lose Conditions
 
 function checkConditon () {
@@ -146,7 +174,7 @@ function checkConditon () {
             let loseBtn = document.createElement('button');
             popUp(loseEl);
             loseEl.style.backgroundColor = "red";
-            loseEl.innerHTML = '<p>You Lose</p>';
+            loseEl.innerHTML = `<p>You Lose</br>Your Score: ${score}</p>`;
             retryBtn(loseBtn, loseEl);
             document.body.appendChild(loseBtn);
     } else if ( timerEl.innerHTML === `0:00` ) {
@@ -154,7 +182,7 @@ function checkConditon () {
             let winBtn = document.createElement('button');
             popUp(winEl);
             winEl.style.backgroundColor = "green";
-            winEl.innerHTML = '<p>You Win</p>';
+            winEl.innerHTML = `<p>You Win</br>Your Score: ${score}</p>`;
             retryBtn(winBtn, winEl);
             document.body.appendChild(winBtn)
     } else {
@@ -193,12 +221,12 @@ function restart (retry, wL) {
     enemies = [];
     enemyPosition = [];
     frame = 0;
-    timeLeft = 90;
-    startingMinutes = 5;
-    lives = 5
+    timeLeft = 300;
+    lives = 5;
+    livesEl.innerHTML = `Lives Left ${lives}`
     animate ();
-    wL.remove()
-    retry.remove()
+    wL.remove();
+    retry.remove();
 }
 
 
@@ -211,6 +239,5 @@ function animate () {
     ctx.fillRect(0, 0, castleWall.width, castleWall.height)
     frame++;
     checkConditon();
-    
 }
 animate ();
