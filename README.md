@@ -24,14 +24,18 @@ I want the user ...
 ## Technologies Used:
     - HTML
     - CSS
-    - FontAwesome
     - JavaScript
 
 ## Approach:
-Explain your approach to develop the app/game
+1. create landing page, instruction page and game page
+2. generate links between pages and css styling of title and buttons
+3. create gameboard
+4. create wall/background/enemy units
+5. create onclick function for deleting enemies
+6. create end game (win/lose) and replay function
 
 ## Challenges:
-List any challenges and how you overcame them
+orignially created everything through flex display, but there was an issue with generating enemy divs and everything moved together. it was changed to a canvas background so that each unit created was animated
 Indicate any outstanding problems
 
 ## Additional information:

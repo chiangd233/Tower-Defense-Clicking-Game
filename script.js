@@ -161,14 +161,14 @@ enemyDiv.addEventListener("click", function (e) {
 
 //Enemy Creation
 
-let spawnRate = 0.5
+let spawnRate = 0.6
 class enemy {
     constructor(verticalPosition) {
         this.x = canvas.width;
         this.y = verticalPosition;
         this.width = cellSize;
         this.height = cellSize;
-        this.speed = Math.random() + 3;
+        this.speed = Math.random() + 2.5;
         this.image = enemyImages[0];
     }
     move () {
@@ -207,7 +207,7 @@ function checkConditon () {
             let loseBtn = document.createElement('button');
             popUp(loseEl);
             loseEl.style.backgroundColor = "red";
-            loseEl.innerHTML = `<p>You Have Been Defeated!</br>Your Score: ${score}</p>`;
+            loseEl.innerHTML = `<h2>You Have Been Defeated!</br>Your Score: ${score}</h2>`;
             retryBtn(loseBtn, loseEl);
             document.body.appendChild(loseBtn);
     } else if ( timerEl.innerHTML === `0:00` ) {
@@ -215,7 +215,7 @@ function checkConditon () {
             let winBtn = document.createElement('button');
             popUp(winEl);
             winEl.style.backgroundColor = "green";
-            winEl.innerHTML = `<p>Victory!</br>Your Score: ${score}</p>`;
+            winEl.innerHTML = `<h2>Victory!</br>Your Score: ${score}</h2>`;
             retryBtn(winBtn, winEl);
             document.body.appendChild(winBtn)
     } else {

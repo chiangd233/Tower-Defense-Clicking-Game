@@ -137,7 +137,7 @@ p {
     border: 3px rgb(144,144,144);
     border-style: ridge;
     position: absolute;
-    top: 24%;
+    top: 2%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
