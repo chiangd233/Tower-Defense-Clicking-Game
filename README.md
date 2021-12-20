@@ -38,8 +38,7 @@ I want the user ...
 orignially created everything through flex display, but there was an issue with generating enemy divs and everything moved together. it was changed to a canvas background so that each unit created was animated
 Indicate any outstanding problems
 
-## Additional information:
-Add anything else you would like us to know
+
 
 ## App Demo
-Link to GitHub project (i.e. - username.github.io)
+Link to GitHub project (https://github.com/chiangd233/Tower-Defense-Clicking-Game)

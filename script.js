@@ -94,6 +94,7 @@ const backgroundFloor = {
 }
 
 // Player creation
+
 const player = {
     x: 0,
     y: canvas.height / 2 - 25,
@@ -145,6 +146,7 @@ canvas.addEventListener('mousemove', function (e) {
 })
 
 // Enemy Killing Code
+
 let enemyDiv = document.querySelector('canvas')
 enemyDiv.addEventListener("click", function (e) {
     for (let i = 0; i < enemies.length; i++) {
@@ -158,7 +160,6 @@ enemyDiv.addEventListener("click", function (e) {
     } 
 } )
 
-
 //Enemy Creation
 
 let spawnRate = 0.6
@@ -168,7 +169,7 @@ class enemy {
         this.y = verticalPosition;
         this.width = cellSize;
         this.height = cellSize;
-        this.speed = Math.random() + 2.5;
+        this.speed = Math.random() * 2 + 2.5;
         this.image = enemyImages[0];
     }
     move () {
@@ -269,15 +270,8 @@ function restart (retry, wL) {
 // Animate game
 function animate () {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-    
-    // ctx.fillStyle = '#9B7653';
-    // ctx.fillRect(0, 0, castleWall.width, castleWall.height)
     ctx.drawImage(backgroundFloor.img, 0, 0, backgroundFloor.width, backgroundFloor.height)
-
-    // drawGameGrid();
     enemyMove();
-
     ctx.drawImage(castleWall.img, -35, -50, castleWall.width + 70, castleWall.height + 100)
     ctx.drawImage(player.img, player.x, player.y, player.width, player.height)
     frame++;
