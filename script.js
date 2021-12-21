@@ -169,7 +169,7 @@ class enemy {
         this.y = verticalPosition;
         this.width = cellSize;
         this.height = cellSize;
-        this.speed = Math.random() * 2 + 2.5;
+        this.speed = Math.random() * 3 + 2.5;
         this.image = enemyImages[0];
     }
     move () {
@@ -252,6 +252,8 @@ function retryBtn (retry, wL) {
     })
 }
 
+// Restart Function
+
 function restart (retry, wL) {
     enemies = [];
     enemyPosition = [];
@@ -268,6 +270,7 @@ function restart (retry, wL) {
 
 
 // Animate game
+
 function animate () {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(backgroundFloor.img, 0, 0, backgroundFloor.width, backgroundFloor.height)
