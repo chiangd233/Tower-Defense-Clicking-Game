@@ -150,7 +150,7 @@ canvas.addEventListener('mousemove', function (e) {
 let enemyDiv = document.querySelector('canvas')
 enemyDiv.addEventListener("click", function (e) {
     for (let i = 0; i < enemies.length; i++) {
-        let buffer = 30;
+        let buffer = 20;
         if (enemies[i].x - buffer <= mouse.x && mouse.x <= enemies[i].x + cellSize + buffer &&
             enemies[i].y - buffer <= mouse.y && mouse.y <= enemies[i].y + cellSize + buffer) {
                 enemies.splice(i,1);
